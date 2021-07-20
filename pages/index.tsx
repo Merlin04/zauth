@@ -79,7 +79,7 @@ export default function Home() {
                 </Stack>
                 {loading && <Spinner />}
                 <Text>
-                    Don't worry, I'm not stealing your password - feel free to
+                    Don&apos;t worry, I&apos;m not stealing your password - feel free to
                     look at the source code at{" "}
                     <Code>/opt/zephyrnet/zauth.zephyr</Code>
                 </Text>
@@ -170,13 +170,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         <Code>
                             <pre>user</pre>
                         </Code>
-                        : The user's username on ZephyrNet
+                        : The user&apos;s username on ZephyrNet
                     </ListItem>
                     <ListItem>
                         <Code>
                             <pre>password</pre>
                         </Code>
-                        : The user's password on ZephyrNet
+                        : The user&apos;s password on ZephyrNet
                     </ListItem>
                 </List>
                 <Text>
@@ -191,7 +191,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 <Text>Query parameters: none</Text>
                 <Text>
                     Returns: The public key to use to validate JWTs on the
-                    server side. You shouldn't need to directly call this in
+                    server side. You shouldn&apos;t need to directly call this in
                     your code, just copy the public key object from the example.
                 </Text>
             </Stack>
