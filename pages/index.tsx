@@ -50,6 +50,7 @@ export default function Home() {
             </Head>
 
             <Stack direction="column">
+                <Heading size="2xl">Don&apos;t use this until I fix a security issue (should be soon but involves somewhat breaking changes to the API)</Heading>
                 <Heading size="xl">ZAuth</Heading>
                 <Heading size="md">An authentication API for ZephyrNet</Heading>
                 <Text>
