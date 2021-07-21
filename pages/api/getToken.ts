@@ -7,8 +7,27 @@ import getKeys from "../../src/keys";
 import child_process from "child_process";
 import path from "path";
 
+function parseAuthHeader(header: string) {
+    let colonPos = 0;
+    const decoded = atob(header);
+    for(let i = 0; i < decoded.length; i++) {
+        if(decoded[i] === ":") {
+            colonPos = i;
+            break;
+        }
+    }
+    return [decoded.slice(0, colonPos), decoded.slice(colonPos + 1)];
+}
+
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { appId, user, password } = req.query as { [key: string]: string };
+    const { appId } = req.query as { [key: string]: string };
+    if(!req.headers.authorization) {
+        res.status(401);
+        res.end();
+        return;
+    }
+    const [user, password] = parseAuthHeader(req.headers.authorization);
 
     if(!(await checkCredentials(user, password))) {
         res.status(401);

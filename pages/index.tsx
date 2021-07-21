@@ -22,11 +22,11 @@ export default function Home() {
         e.preventDefault();
         setLoading(true);
         // Get the JWT
-        const jwtRes = await fetch(
-            `/api/getToken?appId=zauth-example&user=${encodeURIComponent(
-                username
-            )}&password=${encodeURIComponent(password)}`
-        );
+        const jwtRes = await fetch(`/api/getToken?appId=zauth-example`, {
+            headers: {
+                Authorization: btoa(username + ":" + password)
+            }
+        });
         if (jwtRes.status !== 200) {
             alert("Unauthorized");
         } else {
@@ -50,7 +50,6 @@ export default function Home() {
             </Head>
 
             <Stack direction="column">
-                <Heading size="2xl">Don&apos;t use this until I fix a security issue (should be soon but involves somewhat breaking changes to the API)</Heading>
                 <Heading size="xl">ZAuth</Heading>
                 <Heading size="md">An authentication API for ZephyrNet</Heading>
                 <Text>
@@ -80,8 +79,8 @@ export default function Home() {
                 </Stack>
                 {loading && <Spinner />}
                 <Text>
-                    Don&apos;t worry, I&apos;m not stealing your password - feel free to
-                    look at the source code at{" "}
+                    Don&apos;t worry, I&apos;m not stealing your password - feel
+                    free to look at the source code at{" "}
                     <Code>/opt/zephyrnet/zauth.zephyr</Code>
                 </Text>
                 <Heading size="sm">
@@ -91,7 +90,13 @@ export default function Home() {
                     <pre>
                         {`async function login() {
     // Get the JWT
-    const jwtRes = await fetch(\`/api/getToken?appId=zauth-example&user=\${encodeURIComponent(username)}&password=\${encodeURIComponent(password)}\`);
+    const jwtRes = await fetch(
+        \`/api/getToken?appId=zauth-example\`, {
+            headers: {
+                "Authorization": btoa(username + ":" + password)
+            }
+        }
+    );
     if(jwtRes.status !== 200) {
         alert("Unauthorized");
     }
@@ -167,17 +172,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         : an ID that identifies what app a generated token is
                         for. This can be whatever string you want.
                     </ListItem>
+                </List>
+                <Text>Headers:</Text>
+                <List>
                     <ListItem>
                         <Code>
-                            <pre>user</pre>
+                            <pre>Authorization</pre>
                         </Code>
-                        : The user&apos;s username on ZephyrNet
-                    </ListItem>
-                    <ListItem>
+                        : the username and password of the user on ZephyrNet.
+                        This should be a base64 string that, when decoded, is in
+                        the format{" "}
                         <Code>
-                            <pre>password</pre>
+                            <pre>username:password</pre>
                         </Code>
-                        : The user&apos;s password on ZephyrNet
+                        .
                     </ListItem>
                 </List>
                 <Text>
@@ -192,8 +200,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 <Text>Query parameters: none</Text>
                 <Text>
                     Returns: The public key to use to validate JWTs on the
-                    server side. You shouldn&apos;t need to directly call this in
-                    your code, just copy the public key object from the example.
+                    server side. You shouldn&apos;t need to directly call this
+                    in your code, just copy the public key object from the
+                    example.
                 </Text>
             </Stack>
         </Container>
