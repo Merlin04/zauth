@@ -4,6 +4,7 @@ import {
     Container,
     Heading,
     Input,
+    Link,
     List,
     ListItem,
     Spinner,
@@ -38,6 +39,9 @@ export default function Home() {
         setLoading(false);
     }
 
+    const isHttp =
+        typeof window !== "undefined" && window.location.protocol !== "https:";
+
     return (
         <Container marginY="4rem" maxWidth="85ch">
             <Head>
@@ -60,20 +64,32 @@ export default function Home() {
                     tokens).
                 </Text>
                 <Heading size="md">Example</Heading>
+                {isHttp && (
+                    <Heading size="lg">
+                        You&apos;re using HTTP, so I&apos;ve disabled these form
+                        fields for security. Click{" "}
+                        <Link href="https://zauth.zephyr" color="blue">
+                            here to go to the https version
+                        </Link>
+                        .
+                    </Heading>
+                )}
                 <Stack as="form" onSubmit={login} direction="row">
                     <Input
                         type="text"
                         placeholder="Username"
+                        disabled={isHttp}
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <Input
                         type="password"
                         placeholder="Password"
+                        disabled={isHttp}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <Button type="submit" w="10rem">
+                    <Button type="submit" disabled={isHttp} w="10rem">
                         Log in
                     </Button>
                 </Stack>
