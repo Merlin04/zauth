@@ -23,6 +23,11 @@ function parseAuthHeader(header: string) {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     await runMiddleware(req, res);
+    if(req.method === "OPTIONS") {
+        res.status(200).end();
+        return;
+    }
+
     const { appId } = req.query as { [key: string]: string };
     if(!req.headers.authorization) {
         res.status(401);
