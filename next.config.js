@@ -1,5 +1,5 @@
 module.exports = {
-    reactStrictMode: true,
+    reactStrictMode: true/*,
     async headers() {
         return [
             {
@@ -18,5 +18,5 @@ module.exports = {
                 ]
             }
         ];
-    }
+    }*/
 };

@@ -6,6 +6,7 @@ import { parseJwk } from "jose/jwk/parse";
 import getKeys from "../../src/keys";
 import child_process from "child_process";
 import path from "path";
+import runMiddleware from "../../src/corsMiddleware";
 
 function parseAuthHeader(header: string) {
     let colonPos = 0;
@@ -21,6 +22,7 @@ function parseAuthHeader(header: string) {
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    await runMiddleware(req, res);
     const { appId } = req.query as { [key: string]: string };
     if(!req.headers.authorization) {
         res.status(401);

@@ -12,6 +12,8 @@
     "@chakra-ui/react": "^1.6.5",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@types/cors": "^2.8.12",
+    "cors": "^2.8.5",
     "framer-motion": "^4",
     "jose": "^3.14.0",
     "next": "11.0.1",
