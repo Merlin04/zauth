@@ -66,8 +66,8 @@ export default function Home() {
                 <Heading size="md">Example</Heading>
                 {isHttp && (
                     <Heading size="lg">
-                        You&apos;re using HTTP, so I&apos;ve disabled these form
-                        fields for security. Click{" "}
+                        You&apos;re using HTTP, so for security reasons
+                        don&apos;t fill in this form. Click{" "}
                         <Link href="https://zauth.zephyr" color="blue">
                             here to go to the https version
                         </Link>
