@@ -11,3 +11,7 @@ ZAuth is a simple authentication API that uses local Unix account credentials. I
 ZAuth was created for [the Hacker Zephyr](https://zephyr.hackclub.com/), a hackathon run by [Hack Club](https://hackclub.com/) that took place on a trans-atlantic train in the summer of 2021. I built this because we had very limited access to the internet, so we could not use an external auth API like Auth0 or Firebase Auth, and I thought it would be nice if everyone could just use the accounts they already use to sign into ZephyrNet (our server).
 
 Currently, the ZAuth code is tailored to our hackathon, but it should be easy to adapt it to other use cases (it's primarily just a matter of editing the index page).
+
+## Example usage
+
+For examples of how to use ZAuth, check out [the source of the index (demo) page](/pages/index.tsx) and [the example API](/pages/api/example.ts) or run ZAuth locally and go to the `/` route.
