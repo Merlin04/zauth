@@ -1,34 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ZAuth
 
-## Getting Started
+ZAuth is a simple authentication API that uses local Unix account credentials. It uses JWTs (JSON Web Tokens) to make it easy to integrate into your own application. For those unfamiliar with them, here's how the auth flow works:
 
-First, run the development server:
+1. Client (usually a web browser) sends a request to the server with a username and password.
+2. The server checks the username and password against the local Unix account database (`/etc/shadow`).
+3. If the username and password are valid, the server returns a signed JWT that includes the username.
+4. The client uses the JWT token to make authenticated requests to the application's API.
+5. The API uses the ZAuth instance's public key to verify the JWT, making sure that the user is who they claim to be.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+ZAuth was created for [the Hacker Zephyr](https://zephyr.hackclub.com/), a hackathon run by [Hack Club](https://hackclub.com/) that took place on a trans-atlantic train in the summer of 2021. I built this because we had very limited access to the internet, so we could not use an external auth API like Auth0 or Firebase Auth, and I thought it would be nice if everyone could just use the accounts they already use to sign into ZephyrNet (our server).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Currently, the ZAuth code is tailored to our hackathon, but it should be easy to adapt it to other use cases (it's primarily just a matter of editing the index page).
